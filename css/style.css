@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+}
+
+aside{
+    width: 25vw;
+    background-color: bisque;
+}
+section{
+    width:100%;
+}
+
+.scramble{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    min-height: 100px;
+    background-color: aquamarine;
+    font-size: 20px;
+}
+
+.timer{
+    height: calc(100% - 100px);
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    text-align: center;
+    font-size: 80px;
+    
+}
+
+.miliseconds{
+    font-size: 50px;
+}
