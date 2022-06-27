@@ -9,17 +9,38 @@
 </head>
 <body>
     <aside>
+        <header>
+            Best Time:
+            <div id="bestTime"></div>
+            <br>
+            Avg of 3:
+            <div id="avg3"></div>
+            <br>
+            Avg of 5
+            <div id="avg5"></div>
+            <br>
+            Avg of 12:
+            <div id="avg12"></div>
+            <br>
+            Avg:
+            <div id="avgall"></div>
+            <br>
+            <br>
+        </header>
         <ul>
             <li></li>
         </ul>
     </aside>
-    <section>
+    <section id="container">
         <div class="scramble">
         
         </div>
-        <div class="timer">
-            0.<span class="miliseconds">00</span>
-        </div>
+        <section id="timer-container">
+            <div class="timer">
+                <span id="minutes"></span><span id="seconds">0</span>.<span class="miliseconds">00</span>
+            </div>
+        </section>
+        
     </section>
     
     <script src="js/script.js"></script>
