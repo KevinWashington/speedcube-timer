@@ -30,6 +30,10 @@ let avg12El = document.querySelector("#avg12")
 let avgarr = []
 let avg = 0
 let avgEl = document.querySelector("#avgall")
+let listaEl = document.querySelector(".savedTimes")
+let id = 0
+let resultado = document.querySelector(".mostraSolveScramble")
+let scrambleDaSolve = document.querySelector(".scrambleDaSolve")
 
 newScramble()
 
@@ -40,10 +44,12 @@ document.addEventListener("keyup", (e)=>{
 })
 
 function timer(){
+    
     miliseconds++
-    if(miliseconds == 10){
+    miliseconds < 10 ? miliseconds = "0"+miliseconds : miliseconds
+    if(miliseconds == 100){
         seconds++
-        miliseconds = 0
+        miliseconds = "0" + 0
         if(seconds == 60){
             minutes ++
             minutes < 10 ? minutes = "0"+minutes : minutes
@@ -80,11 +86,12 @@ function newScramble(){
 
 function saveTime(){
     let divNova = document.createElement("li");
-    times.push({time: Number(`${minutes*60+seconds}.${miliseconds}`),scramble: lastScramble})
-
+    divNova.classList.add("savedTimes")
+    times.push({time: Number(`${minutes*60+seconds}.${miliseconds}`),scramble: lastScramble, id: times.length})
+    divNova.setAttribute("data-id", times[times.length - 1].id)
     if(times[times.length - 1].time < bestTime){
         bestTime = times[times.length - 1].time
-        bestTimeEl.innerHTML = bestTime
+        bestTimeEl.innerHTML = bestTime.toFixed(2)
     }
     if(times.length >=3){
         avg3 = 0
@@ -121,7 +128,7 @@ function saveTime(){
     divNova.innerHTML = `<p>${timerEl.innerText}</p>`
     // adiciona o novo elemento criado e seu conteúdo ao DOM
     let divpai=document.querySelector("ul")
-    divpai.append(divNova)
+    divpai.insertBefore(divNova, document.querySelector("li:first-child"))
 }
 
 function run(){
@@ -133,11 +140,27 @@ function run(){
         lastScramble = scrambleEl.innerHTML
         scrambleEl.innerHTML = ""
         newScramble()
-        interval = setInterval(timer, 100);
+        interval = setInterval(timer, 10);
     }else{
         saveTime()
+        seeSolveScrambles()
         running = false
         clearInterval(interval)
     }
 }
 
+
+
+function seeSolveScrambles(){
+    document.querySelectorAll(".savedTimes").forEach((e)=>{
+        e.addEventListener("click", ()=>{
+            id = e.getAttribute("data-id")
+            scrambleDaSolve.innerText = times[id].scramble
+            resultado.classList.add("active")
+        })
+    })
+} 
+
+document.querySelector(".fechaDetails").addEventListener("click", ()=>{
+    resultado.classList.remove("active")
+})
