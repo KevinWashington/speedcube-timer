@@ -85,10 +85,12 @@ function newScramble(){
 }
 
 function saveTime(){
-    let divNova = document.createElement("li");
+    let divNova = document.createElement("tr");
     divNova.classList.add("savedTimes")
     times.push({time: Number(`${minutes*60+seconds}.${miliseconds}`),scramble: lastScramble, id: times.length})
     divNova.setAttribute("data-id", times[times.length - 1].id)
+    divNova.innerHTML = `<td>${times[times.length - 1].id+1}</td><td>${timerEl.innerText}</td>`
+
     if(times[times.length - 1].time < bestTime){
         bestTime = times[times.length - 1].time
         bestTimeEl.innerHTML = bestTime.toFixed(2)
@@ -124,11 +126,8 @@ function saveTime(){
         });
         avgEl.innerHTML = (avg/times.length).toFixed(2)
     }
-
-    divNova.innerHTML = `<p>${timerEl.innerText}</p>`
-    // adiciona o novo elemento criado e seu conteúdo ao DOM
-    let divpai=document.querySelector("ul")
-    divpai.insertBefore(divNova, document.querySelector("li:first-child"))
+    let divpai = document.querySelector("tbody")
+    divpai.insertBefore(divNova, divpai.firstChild)
 }
 
 function run(){
@@ -137,6 +136,7 @@ function run(){
         seconds = 0
         minutes = 0
         running = true
+        document.querySelector("#timer-container").classList.add("running")
         lastScramble = scrambleEl.innerHTML
         scrambleEl.innerHTML = ""
         newScramble()
@@ -144,6 +144,7 @@ function run(){
     }else{
         saveTime()
         seeSolveScrambles()
+        document.querySelector("#timer-container").classList.remove("running")
         running = false
         clearInterval(interval)
     }
