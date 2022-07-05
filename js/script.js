@@ -53,7 +53,7 @@ function timer(){
         if(seconds == 60){
             minutes ++
             minutes < 10 ? minutes = "0"+minutes : minutes
-            seconds = "0"+0
+            seconds = 0
         }
     }
     if(minutes==0){
@@ -93,7 +93,12 @@ function saveTime(){
 
     if(times[times.length - 1].time < bestTime){
         bestTime = times[times.length - 1].time
-        bestTimeEl.innerHTML = bestTime.toFixed(2)
+        if(bestTime >= 60 ){
+            bestTimeEl.innerHTML = `${(bestTime/60).toFixed(0)}:${ bestTime < 1 ? (bestTime%60).toFixed(2) : "0"+(bestTime%60).toFixed(2)}` 
+        }else{
+            bestTimeEl.innerHTML = bestTime
+        }
+        
     }
     if(times.length >=3){
         avg3 = 0
@@ -101,7 +106,12 @@ function saveTime(){
         avg3arr.forEach(e => {
             avg3 += e.time
         });
-        avg3El.innerHTML = (avg3/3).toFixed(2)
+        if(avg3/3 >= 60 ){
+            avg3El.innerHTML = `${(avg3/3/60).toFixed(0)}:${ avg3/3 < 1 ? ((avg3/3)%60).toFixed(2) : "0"+((avg3/3)%60).toFixed(2)}` 
+        }else{
+            avg3El.innerHTML = (avg3/3).toFixed(2)
+        }
+        
     }
     if(times.length >=5){
         avg5 = 0
@@ -109,7 +119,12 @@ function saveTime(){
         avg5arr.forEach(e => {
             avg5 += e.time
         });
-        avg5El.innerHTML = (avg5/5).toFixed(2)
+        if(avg5/5 >= 60 ){
+            avg5El.innerHTML = `${(avg5/5/60).toFixed(0)}:${ avg5/5 < 1 ? ((avg5/5)%60).toFixed(2) : "0"+((avg5/5)%60).toFixed(2)}` 
+        }else{
+            avg5El.innerHTML = (avg5/5).toFixed(2)
+        }
+        
     }
     if(times.length >=12){
         avg12 = 0
@@ -117,14 +132,24 @@ function saveTime(){
         avg12arr.forEach(e => {
             avg12 += e.time
         });
-        avg12El.innerHTML = (avg12/12).toFixed(2)
+        if(avg12/12 >= 60 ){
+            avg12El.innerHTML = `${(avg12/12/60).toFixed(0)}:${ avg12/12 < 1 ? ((avg12/12)%60).toFixed(2) : "0"+((avg12/12)%60).toFixed(2)}` 
+        }else{
+            avg12El.innerHTML = (avg12/12).toFixed(2)
+        }
+       
     }
     if(times.length >=1){
         avg = 0
         times.forEach(e => {
             avg += e.time
         });
-        avgEl.innerHTML = (avg/times.length).toFixed(2)
+        if(avg/times.length >= 60 ){
+            avgEl.innerHTML = `${(avg/times.length/60).toFixed(0)}:${ avg/times.length < 1 ? ((avg/times.length)%60).toFixed(2) : "0"+((avg/times.length)%60).toFixed(2)}` 
+        }else{
+            avgEl.innerHTML = (avg/times.length).toFixed(2)
+        }
+        
     }
     let divpai = document.querySelector("tbody")
     divpai.insertBefore(divNova, divpai.firstChild)
@@ -134,11 +159,12 @@ function run(){
     if(!running){
         miliseconds = "0"+0
         seconds = 0
+        minutesEl.innerHTML = ""
         minutes = 0
         running = true
         document.querySelector("#timer-container").classList.add("running")
         lastScramble = scrambleEl.innerHTML
-        scrambleEl.innerHTML = ""
+        scrambleEl.innerHTML = "" 
         newScramble()
         interval = setInterval(timer, 10);
     }else{
