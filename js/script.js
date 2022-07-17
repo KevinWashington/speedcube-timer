@@ -72,12 +72,12 @@ function newScramble(){
     do{
         face = Math.floor(Math.random()*5.99)
         faceMove = Math.floor(Math.random()*2.99)
-        if(lastFace === face){
+        if(lastFace === faces[face]){
             scramble.pop()
         }else{
             scramble.push(`${faces[face]}${moves[faceMove]}   `)
         }
-        lastFace = face
+        lastFace = faces[face]
     }while(scramble.length<20)
     for (i in scramble){
         scrambleEl.innerHTML += scramble[i]
